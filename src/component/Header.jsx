@@ -2,30 +2,43 @@ import menubar from '../assets/images/icon-menu.svg'
 import logo from '../assets/images/logo.svg'
 import cartIcon from '../assets/images/icon-cart.svg'
 import profileIcon from '../assets/images/image-avatar.png'
+import closeIcon from '../assets/images/icon-close.svg'
 export function Header(){
     return(
-        <header className='w-full grid bg-White fixed top-0 md:relative md:p-8 md:w-[90%] md:mx-auto'>
+        <header className='w-full grid bg-White fixed z-50 top-0 md:relative md:p-8 md:w-[90%] md:mx-auto'>
+            
             <div className='w-full flex px-6 py-4 justify-between '>
                 <div className='flex gap-4 items-center md:gap-8'>
                     <img src={menubar} alt="menu-icon" className='md:hidden'/>
                     <img src={logo} alt="Logo"/>
 
-                    <ul className='hidden md:flex gap-6'>
-                        <li className='text-Darkgrayishblue font-md'>Collections</li>
-                        <li className='text-Darkgrayishblue font-md'>Men</li>
-                        <li className='text-Darkgrayishblue font-md'>Women</li>
-                        <li className='text-Darkgrayishblue font-md'>About</li>
-                        <li className='text-Darkgrayishblue font-md'>Contact</li>
-                    </ul>
+                    <div className='hidden md:grid absolute z-50 top-0 left-0 w-full h-[100vh] bg-Black md:relative md:h-0'>
+                        <ul className='w-[65%] h-[100vh] md:h-0 md:items-center bg-white px-6 flex flex-col md:flex md:flex-row gap-6'> 
+                            <li className='md:hidden'><img src={closeIcon} alt="close icon" width={20} className='mb-8 mt-5'/></li>
+                            <li className='text-black font-bold text-lg md:font-md md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Collections</li>
+                            <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Men</li>
+                            <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Women</li>
+                            <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>About</li>
+                            <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Contact</li>
+                        </ul>
+                    </div>
+                    
                 </div>
                 
 
                 <div className='flex gap-4 items-center'>
-                    <img src={cartIcon} alt="cart-icon" width={30}/>
-                    <img src={profileIcon} alt="profile-icon" width={30}/>
+                    <img src={cartIcon} alt="cart-icon" width={30} className='cursor-pointer'/>
+                    <img src={profileIcon} alt="profile-icon" width={40} className='border-2 hover:border-Orange rounded-full cursor-pointer'/>
                 </div>
             </div> 
-            <hr className='hidden md:grid mx-8 mt-8'/>
+            <hr className='hidden md:grid mx-8 mt-2'/>
+            <div className='hidden w-[95%] top-[110%] md:w-[28%] absolute md:left md:top-[65%] md:right-10 bg-white shadow-2xl z-20 rounded-lg pb-5'>
+                <h4 className='text-lg font-md p-4'>Cart</h4>
+                <hr />
+                <div className='grid justify-center items-center h-48 md:h-36 hidden'>
+                    <p className='text-Darkgrayishblue text-xl font-md'>Your cart is empty</p>
+                </div>
+            </div>
         </header>
     )
 }

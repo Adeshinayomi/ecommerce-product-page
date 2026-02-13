@@ -14,7 +14,7 @@ export default {
         Grayishblue:" hsl(220, 14%, 75%)",
         Lightgrayishblue: "hsl(223, 64%, 98%)",
         White: "hsl(0, 0%, 100%)",
-        Black: "hsl(0, 0%, 0%)"
+        Black: "hsla(0, 0%, 0%, 0.64)"
       },
       fontFamily:{
         khum:["Kumbh Sans", "sans-serif"]
