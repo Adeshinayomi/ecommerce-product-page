@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [cart,setCart]=useState({})
+  const [showmodal,setShowmodal]=useState(false)
 
   function loadCart(product){
     setCart({
@@ -18,11 +19,20 @@ function App() {
   function deleteItem(){
     setCart({})
   }
+  function toggleModal(){
+    if(showmodal){
+      setShowmodal(false)
+    }else{
+      setShowmodal(true)
+    }
+  }
   return (
     <>
       <Header cart={cart} loadCart={loadCart} deleteItem={deleteItem}/>
-      <Hero cart={cart} loadCart={loadCart} />
-      <Modal/>
+      <Hero cart={cart} loadCart={loadCart} toggleModal={toggleModal}/>
+      <div className='hidden md:grid'>
+        <Modal showmodal={showmodal} toggleModal={toggleModal}/>
+      </div>
     </>
   )
 }

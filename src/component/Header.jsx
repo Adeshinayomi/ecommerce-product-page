@@ -7,7 +7,7 @@ import profileIcon from '../assets/images/image-avatar.png'
 import closeIcon from '../assets/images/icon-close.svg'
 
 export function Header({cart,deleteItem}){
-
+    const [showMenu,setShowMenu]=useState(false)
    const [iscarthidden,setIscarthidden]=useState(false)
 
     function toggleCart(){
@@ -21,17 +21,25 @@ export function Header({cart,deleteItem}){
         toggleCart()
     }
 
+    function toggleMenu(){
+        if(showMenu){
+            setShowMenu(false)
+        }else{
+            setShowMenu(true)
+        }
+        
+    }
     return(
         <header className='w-full grid bg-White fixed z-50 top-0 md:relative md:p-8 md:w-[90%] md:mx-auto'>
             
             <div className='w-full flex px-6 py-4 justify-between '>
                 <div className='flex gap-4 items-center md:gap-8'>
-                    <img src={menubar} alt="menu-icon" className='md:hidden'/>
+                    <img src={menubar} alt="menu-icon" className='md:hidden' onClick={toggleMenu}/>
                     <img src={logo} alt="Logo"/>
 
-                    <div className='hidden md:grid absolute z-50 top-0 left-0 w-full h-[100vh] bg-Black md:relative md:h-0'>
+                    <div className={`${showMenu?'':'hidden'} md:grid absolute z-50 top-0 left-0 w-full h-[100vh] bg-Black md:relative md:h-0`}>
                         <ul className='w-[65%] h-[100vh] md:h-0 md:items-center bg-white px-6 flex flex-col md:flex md:flex-row gap-6'> 
-                            <li className='md:hidden'><img src={closeIcon} alt="close icon" width={20} className='mb-8 mt-5'/></li>
+                            <li className='md:hidden' onClick={toggleMenu}><img src={closeIcon} alt="close icon" width={20} className='mb-8 mt-5'/></li>
                             <li className='text-black font-bold text-lg md:font-md md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Collections</li>
                             <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Men</li>
                             <li className='text-black font-bold text-lg md:text-Darkgrayishblue font-md md:hover:underline underline-offset-[2em] decoration-4 decoration-Orange cursor-pointer'>Women</li>
