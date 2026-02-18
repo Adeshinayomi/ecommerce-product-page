@@ -44,12 +44,18 @@ export function Header({cart,deleteItem}){
                 
 
                 <div className='flex gap-4 items-center'>
-                    <img src={cartIcon} alt="cart-icon" width={30} className='cursor-pointer' onClick={showCart}/>
+                    <div className='relative'>
+                        <span className='absolute -top-4 -right-3 bg-Orange text-White rounded-full px-2 text-sm'>{cart.quantity}</span>
+                        <img src={cartIcon} alt="cart-icon" width={30} className='cursor-pointer' onClick={showCart}/>
+                    </div>
+                    
                     <img src={profileIcon} alt="profile-icon" width={40} className='border-2 hover:border-Orange rounded-full cursor-pointer'/>
                 </div>
             </div> 
+
             <hr className='hidden md:grid mx-8 mt-2'/>
-            <div className={`${iscarthidden?'grid':'hidden'} w-[95%] top-[110%] md:w-[25%] absolute md:left md:top-[65%] md:right-10 bg-white shadow-2xl z-20 rounded-lg pb-5`}>
+
+            <div className={`${iscarthidden?'grid':'hidden'} w-[95%] top-[110%] right-2 md:w-[25%] absolute md:top-[65%] md:right-10 bg-white shadow-2xl z-20 rounded-lg pb-5`}>
                 <h4 className='text-lg font-md p-4'>Cart</h4>
                 <hr />
                 {Object.keys(cart).length >0 && <Cart cart={cart} deleteItem={deleteItem}/>}
