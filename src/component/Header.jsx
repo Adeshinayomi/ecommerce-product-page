@@ -1,9 +1,26 @@
+import { useState } from 'react'
+import { Cart } from './Cart.jsx'
 import menubar from '../assets/images/icon-menu.svg'
 import logo from '../assets/images/logo.svg'
 import cartIcon from '../assets/images/icon-cart.svg'
 import profileIcon from '../assets/images/image-avatar.png'
 import closeIcon from '../assets/images/icon-close.svg'
-export function Header(){
+
+export function Header({cart,deleteItem}){
+
+   const [iscarthidden,setIscarthidden]=useState(false)
+
+    function toggleCart(){
+        if(iscarthidden){
+            setIscarthidden(false)
+        }else{
+            setIscarthidden(true)
+        }
+    }
+    const showCart=()=>{
+        toggleCart()
+    }
+
     return(
         <header className='w-full grid bg-White fixed z-50 top-0 md:relative md:p-8 md:w-[90%] md:mx-auto'>
             
@@ -27,15 +44,17 @@ export function Header(){
                 
 
                 <div className='flex gap-4 items-center'>
-                    <img src={cartIcon} alt="cart-icon" width={30} className='cursor-pointer'/>
+                    <img src={cartIcon} alt="cart-icon" width={30} className='cursor-pointer' onClick={showCart}/>
                     <img src={profileIcon} alt="profile-icon" width={40} className='border-2 hover:border-Orange rounded-full cursor-pointer'/>
                 </div>
             </div> 
             <hr className='hidden md:grid mx-8 mt-2'/>
-            <div className='hidden w-[95%] top-[110%] md:w-[28%] absolute md:left md:top-[65%] md:right-10 bg-white shadow-2xl z-20 rounded-lg pb-5'>
+            <div className={`${iscarthidden?'grid':'hidden'} w-[95%] top-[110%] md:w-[25%] absolute md:left md:top-[65%] md:right-10 bg-white shadow-2xl z-20 rounded-lg pb-5`}>
                 <h4 className='text-lg font-md p-4'>Cart</h4>
                 <hr />
-                <div className='grid justify-center items-center h-48 md:h-36 hidden'>
+                {Object.keys(cart).length >0 && <Cart cart={cart} deleteItem={deleteItem}/>}
+                
+                <div className={`grid justify-center items-center h-48 md:h-36 ${Object.keys(cart).length === 0?'':'hidden'}`}>
                     <p className='text-Darkgrayishblue text-xl font-md'>Your cart is empty</p>
                 </div>
             </div>
