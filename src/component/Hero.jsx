@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useRef,useEffect } from 'react'
 import heroImage from '../assets/images/image-product-1.jpg'
 import productImage2 from '../assets/images/image-product-2.jpg'
 import productImage3 from '../assets/images/image-product-3.jpg'
@@ -11,6 +11,10 @@ import cartIcon from '../assets/images/icon-cart.svg'
 
 export function Hero({loadCart}){
     const [quantity,setQuantity]=useState(0)
+    const [current,setCurrent]=useState(0)
+    const divElement=useRef(null)
+    let count=0
+
     const add=()=>{
         setQuantity(
             quantity+1
@@ -32,22 +36,65 @@ export function Hero({loadCart}){
         })
         setQuantity(0)
     }
+    const prev=()=>{
+        if(count>0){
+            count--
+            divElement.current.scrollLeft=count*415
+        }else{
+            count=3
+            divElement.current.scrollLeft=count*415
+        }
+        
+    }
+    const nextSlide=()=>{
+        if(count>3){
+            count=0
+            divElement.current.scrollLeft=count*415
+        }else{
+            count++
+            divElement.current.scrollLeft=count*415
+        }
+    }
     return(
         <section className='md:grid md:grid-cols-2 md:w-[80%] md:mx-auto md:items-center md:justify-center md:h-[80vh] md:gap-5 mt-10'>
             <div className='grid gap-4 md:gap-10'>
-                <img src={heroImage} alt="product-image-1" className='md:rounded-lg md:w-5/6'/>
+                <div className='flex overflow-auto md:overflow-hidden md:w-5/6' ref={divElement}>
+                    <img src={heroImage} alt="product-image-1" className='md:rounded-lg '/>
+                    <img src={productImage2} alt="product-image-1" className='md:rounded-lg'/>
+                    <img src={productImage3} alt="product-image-1" className='md:rounded-lg'/>
+                    <img src={productImage4} alt="product-image-1" className='md:rounded-lg'/>
+                </div>
+                
                 <div className='relative z-20 bottom-[13em] flex justify-between px-3 md:hidden'>
-                    <button className='bg-White px-4 py-3 rounded-full'><img src={previous} alt="previous-icon"/></button>
-                    <button className='bg-White px-4 py-3 rounded-full'><img src={next} alt="next-icon"/></button>
+                    <button className='bg-White px-4 py-3 rounded-full'><img src={previous} alt="previous-icon" onClick={prev}/></button>
+                    <button className='bg-White px-4 py-3 rounded-full'><img src={next} alt="next-icon" onClick={nextSlide}/></button>
                 </div>
                 <div className='hidden md:flex md:gap-8'>
-                    <div className='border-2 border-orange-400 rounded-lg'>
-                        <img src={heroImage} alt="hero-image" width={80} className='rounded-lg opacity-25 cursor-pointer'/>
+                    <div className={current === 0 && 'border-2 border-orange-400 rounded-lg'} onClick={()=>{
+                        divElement.current.scrollLeft=0*410
+                        setCurrent(0)
+                    }}>
+                        <img src={heroImage} alt="hero-image" width={80} className={`rounded-md hover:opacity-25 ${current === 0 && 'opacity-25'} cursor-pointer`}/>
                     </div>
-                    {/* <img src={heroImage} alt="hero-image" width={80} className='rounded-lg opacity-25 border-4 border-Orange'/> */}
-                    <img src={productImage2} alt="product-image-2" width={80} className='rounded-lg hover:opacity-25 cursor-pointer'/>
-                    <img src={productImage3} alt="product-image-2" width={80} className='rounded-lg hover:opacity-25 cursor-pointer'/>
-                    <img src={productImage4} alt="product-image-2" width={80} className='rounded-lg hover:opacity-25 cursor-pointer'/>
+                    <div className={current === 1 && 'border-2 border-orange-400 rounded-lg'} onClick={()=>{
+                        divElement.current.scrollLeft=1*410
+                        setCurrent(1)
+                    }}>
+                        <img src={productImage2} alt="product-image-2" width={80} className={`rounded-md hover:opacity-25 ${current ===1 && 'opacity-25'} cursor-pointer`}/>
+                    </div>
+                    <div className={current === 2 && 'border-2 border-orange-400 rounded-lg'}  onClick={()=>{
+                        divElement.current.scrollLeft=2*410
+                        setCurrent(2)
+                    }}>
+                        <img src={productImage3} alt="product-image-2" width={80} className={`rounded-md hover:opacity-25 ${current ===2 && 'opacity-25'} cursor-pointer`}/>
+                    </div>
+                    <div className={current === 3 && 'border-2 border-orange-400 rounded-lg'}  onClick={()=>{
+                         divElement.current.scrollLeft=3*410
+                         setCurrent(3)
+                    }}>
+                        <img src={productImage4} alt="product-image-2" width={80} className={`rounded-md hover:opacity-25 ${current ===3 && 'opacity-25'} cursor-pointer`}/>
+                    </div>
+                    
                 </div>
             </div>
             <div className='px-6 grid gap-6 mb-10 md:mb-0'>     
