@@ -10,33 +10,22 @@ export function Modal({showmodal,toggleModal}){
     const divElement=useRef(null)
     let [count,setCount]=useState(0)
     const prev=()=>{
-        if(count >0){
-            const newCount=count-1
-            setCount(newCount)
-            divElement.current.scrollLeft=newCount*384
-            
-            
+        if(count >0){    
+            setCount(prev=>prev-1) 
         }else{
-            const newCount=0
-            setCount(newCount)
-            divElement.current.scrollLeft=newCount*384
-            
-        }
-        
+            setCount(0)
+        } 
     }
     const nextSlide=()=>{
         if(count>=3){
-            const newCount=3
-            setCount(newCount)
-            divElement.current.scrollLeft=newCount*384
-            
+            setCount(3)
         }else{
-            const newCount=count+1
-            setCount(newCount)
-            divElement.current.scrollLeft=newCount*384
-            
+            setCount(prev=>prev+1)
         }
     }
+    useEffect(()=>{
+        divElement.current.scrollLeft=count*384
+    },[count])
     return(
         <div className={` md:w-full fixed top-0 z-50 full h-[100vh] bg-Black ${!showmodal && 'hidden'}`}>
             <div className='w-[80%] mx-auto md:w-full h-full flex flex-col gap-10 justify-center items-center'>
